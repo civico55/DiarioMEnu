@@ -1,15 +1,112 @@
-
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Menu Diario</title>
-    <script type="module" crossorigin src="/assets/index.js"></script>
-    <link rel="stylesheet" href="/assets/index.css">
-  </head>
-  <body>
-    <div id="app"></div>
-  </body>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu Giornaliero - Diario Dario</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background-color: #fefefe;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .giorno-selector {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    select, textarea {
+      padding: 0.5rem;
+      margin: 0.5rem;
+      font-size: 1rem;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+    }
+    .emoji-picker {
+      text-align: center;
+      margin: 1rem 0;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .note-salvate {
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>📔 Diario Alimentare di Dario</h1>
+
+  <div class="giorno-selector">
+    <label for="giorno">Scegli il giorno:</label>
+    <select id="giorno">
+      <option value="lunedì">Lunedì</option>
+      <option value="martedì">Martedì</option>
+      <option value="mercoledì">Mercoledì</option>
+      <option value="giovedì">Giovedì</option>
+      <option value="venerdì">Venerdì</option>
+      <option value="sabato">Sabato</option>
+      <option value="domenica">Domenica</option>
+    </select>
+  </div>
+
+  <div class="emoji-picker">
+    <label for="emoji">Come ti senti oggi? 🧠🧘🍕💪</label>
+    <select id="emoji">
+      <option value="🙂">🙂</option>
+      <option value="😐">😐</option>
+      <option value="😫">😫</option>
+      <option value="💪">💪</option>
+      <option value="🍕">🍕</option>
+      <option value="🧘">🧘</option>
+      <option value="🔥">🔥</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="note">Note del giorno:</label><br />
+    <textarea id="note" placeholder="Scrivi qui le tue note alimentari, sensazioni, progressi..."></textarea>
+  </div>
+
+  <div style="text-align: center; margin-top: 1rem;">
+    <button onclick="salvaNota()">💾 Salva nota</button>
+  </div>
+
+  <div class="note-salvate">
+    <h2>🗒️ Note Salvate</h2>
+    <ul id="lista-note"></ul>
+  </div>
+
+  <script>
+    function salvaNota() {
+      const giorno = document.getElementById("giorno").value;
+      const emoji = document.getElementById("emoji").value;
+      const nota = document.getElementById("note").value;
+
+      if (!nota.trim()) {
+        alert("Scrivi qualcosa nella nota prima di salvare!");
+        return;
+      }
+
+      const lista = document.getElementById("lista-note");
+      const li = document.createElement("li");
+      li.textContent = `📅 ${giorno} ${emoji} - ${nota}`;
+      lista.appendChild(li);
+
+      document.getElementById("note").value = "";
+    }
+  </script>
+</body>
 </html>
