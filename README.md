@@ -73,28 +73,31 @@ merendine.
 • Mantenersi sempre attivi.
 
 • Mantenere la convivialità dei pasti.
+
 VERDURE DI STAGIONE A SCELTA
 (2 porzioni di verdura al giorno)
-VERDURA QUANTITÀ LIMITATA (100-150g)
-Asparagi (150g)
-Carciofi (150g)
-Funghi (150g)
-Melanzane (200g)
+VERDURA QUANTITÀ LIMITATA (100-150g)-
+Asparagi (150g)-
+Carciofi (150g)-
+Funghi (150g)-
+Melanzane (200g)-
 Peperoni crudi (150g)
+
 VERDURA QUANTITÀ ILLIMITATA
-Bietole
-Fagiolini
-Cetrioli
-Cicoria
-Finocchi
-Fiori di zucca
-Lattughino verde, foglia piccola e tenera
-Ravanello
-Rucola
-Sedano
-Spinaci
-Valeriana
+Bietole-
+Fagiolini-
+Cetrioli-
+Cicoria-
+Finocchi-
+Fiori di zucca-
+Lattughino verde, foglia piccola e tenera-
+Ravanello-
+Rucola-
+Sedano-
+Spinaci-
+Valeriana-
 Zucchine
+
 FRUTTA DI STAGIONE A SCELTA
 ( 2-3 porzioni di frutta al giorno) non troppo matura
 Avocado 50 g, banana 200 g, kiwi 300g, fragole 200 g, fichi 150 g, lamponi 150 g, more
