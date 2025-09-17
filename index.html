@@ -3,188 +3,173 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Diario Alimentare</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menu Diario - Dario</title>
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #e0f7fa, #fffde7);
       margin: 0;
       padding: 1rem;
-      background: #f5f5f5;
       color: #333;
     }
-    h1 {
+
+    h1, h2 {
       text-align: center;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
       margin-bottom: 1rem;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
-    select, textarea, button {
-      width: 100%;
-      font-size: 1rem;
-      margin-top: 0.5rem;
+
+    .tab {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      background-color: #00796b;
+      color: white;
+      cursor: pointer;
+      border: none;
+      font-weight: bold;
     }
-    textarea {
-      height: 100px;
-      resize: vertical;
+
+    .tab.active {
+      background-color: #004d40;
     }
+
     .section {
+      display: none;
       background: white;
       padding: 1rem;
-      border-radius: 8px;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 0 auto 1rem auto;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-top: 0.5rem;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.5rem;
       margin-bottom: 1rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      font-size: 1rem;
     }
+
     .menu-entry {
-      margin-bottom: 0.5rem;
+      margin: 0.5rem 0;
     }
-    #savedNotes {
-      white-space: pre-wrap;
-    }
-    .tab {
-      margin-top: 1rem;
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.4rem;
+      }
+
+      select, textarea, button {
+        font-size: 1rem;
+      }
+
+      .menu-entry {
+        font-size: 0.95rem;
+      }
+
+      .tab {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>📒 Diario Alimentare di Dario</h1>
+  <h1>📅 Menu Diario - Dario</h1>
+  <div class="tabs">
+    <button class="tab active" onclick="showSection('diario')">📔 Diario</button>
+    <button class="tab" onclick="showSection('menu')">📅 Menù</button>
+    <button class="tab" onclick="showSection('regole')">📝 Regole</button>
+  </div>
 
-  <div class="section">
-    <label for="giorno">📆 Scegli il giorno:</label>
-    <select id="giorno">
-      <option>Lunedì</option>
-      <option>Martedì</option>
-      <option>Mercoledì</option>
-      <option>Giovedì</option>
-      <option>Venerdì</option>
-      <option>Sabato</option>
-      <option>Domenica</option>
+  <div id="diario" class="section active">
+    <h2>Diario Giornaliero</h2>
+    <select id="giornoSelect" onchange="caricaNote()">
+      <option value="Lunedì">Lunedì</option>
+      <option value="Martedì">Martedì</option>
+      <option value="Mercoledì">Mercoledì</option>
+      <option value="Giovedì">Giovedì</option>
+      <option value="Venerdì">Venerdì</option>
+      <option value="Sabato">Sabato</option>
+      <option value="Domenica">Domenica</option>
     </select>
+    <textarea id="note" placeholder="Scrivi le tue note, sensazioni o emoji 😊"></textarea>
+    <button onclick="salvaNote()">💾 Salva</button>
   </div>
 
-  <div class="section" id="menuGiorno">
-    <h2>🍽️ Menù del Giorno</h2>
-    <div id="menuContent">Seleziona un giorno per vedere il menù.</div>
+  <div id="menu" class="section">
+    <h2>Menù della Settimana</h2>
+    <div id="menuContent">Caricamento...</div>
   </div>
 
-  <div class="section">
-    <label for="emoji">🙂 Come ti senti oggi?</label>
-    <select id="emoji">
-      <option value="😊">😊</option>
-      <option value="😐">😐</option>
-      <option value="😔">😔</option>
-      <option value="😎">😎</option>
-      <option value="🥴">🥴</option>
-    </select>
-
-    <label for="note">📝 Note del giorno:</label>
-    <textarea id="note" placeholder="Scrivi qui le tue note alimentari, sensazioni, progressi..."></textarea>
-    <button onclick="salvaNota()">💾 Salva nota</button>
+  <div id="regole" class="section">
+    <h2>Regole e Indicazioni</h2>
+    <p>- Bere almeno 1,5-2 litri di acqua al giorno 💧</p>
+    <p>- Evita zuccheri semplici e grassi saturi 🚫</p>
+    <p>- Mastica lentamente e mangia con consapevolezza 🍽️</p>
+    <p>- Rispetta gli orari dei pasti ⏰</p>
+    <p>- Fai attività fisica regolare 🏃‍♂️</p>
   </div>
 
-  <div class="section">
-    <h2>🗂️ Note Salvate</h2>
-    <div id="savedNotes">Nessuna nota salvata.</div>
-  </div>
+  <script type="module">
+    import { menuSettimanale } from './menuSettimanale.js';
 
-  <script>
-    const menuSettimana = {
-      'Lunedì': {
-        'Colazione': 'Caffè + 2 gallette con marmellata + mandorle',
-        'Spuntino': '1 frutto + 2 noci',
-        'Pranzo': 'Riso con zucchine + bresaola + verdure',
-        'Merenda': 'Yogurt magro + frutta secca',
-        'Cena': 'Vellutata di zucca + uovo sodo + pane integrale'
-      },
-      'Martedì': {
-        'Colazione': 'Tè verde + 3 fette biscottate con miele',
-        'Spuntino': 'Frullato con banana e proteine',
-        'Pranzo': 'Petto di pollo + insalata + riso',
-        'Merenda': 'Barretta ai cereali',
-        'Cena': 'Pesce al forno + patate lesse + verdure'
-      },
-      'Mercoledì': {
-        'Colazione': 'Latte di mandorla + cereali integrali',
-        'Spuntino': '1 mela + mandorle',
-        'Pranzo': 'Insalatona con tonno, ceci e verdure',
-        'Merenda': 'Yogurt greco + miele',
-        'Cena': 'Omelette con verdure + pane integrale'
-      },
-      'Giovedì': {
-        'Colazione': 'Caffè + pancake integrale + frutti di bosco',
-        'Spuntino': 'Succo ACE + noci',
-        'Pranzo': 'Cous cous con verdure e tacchino',
-        'Merenda': 'Smoothie proteico',
-        'Cena': 'Crema di legumi + crostini integrali + ricotta'
-      },
-      'Venerdì': {
-        'Colazione': 'Tisana + 2 fette di pane integrale con tahina',
-        'Spuntino': 'Frutta + semi misti',
-        'Pranzo': 'Pasta integrale con pomodoro e ricotta',
-        'Merenda': 'Frutta fresca',
-        'Cena': 'Filetto di pesce + verdure grigliate + pane'
-      },
-      'Sabato': {
-        'Colazione': 'Latte + biscotti integrali',
-        'Spuntino': 'Banana',
-        'Pranzo': 'Risotto con funghi + insalata',
-        'Merenda': 'Yogurt + cereali',
-        'Cena': 'Hamburger vegetale + patate al forno + insalata'
-      },
-      'Domenica': {
-        'Colazione': 'Cappuccino + 2 fette biscottate + marmellata',
-        'Spuntino': 'Frutta secca + datteri',
-        'Pranzo': 'Lasagna + contorno di verdure',
-        'Merenda': 'Dolcetto casalingo',
-        'Cena': 'Zuppa leggera + toast integrale + formaggio magro'
-      }
-    };
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
 
-    const giornoSelect = document.getElementById("giorno");
-    const menuContent = document.getElementById("menuContent");
-    const noteInput = document.getElementById("note");
-    const emojiInput = document.getElementById("emoji");
-    const savedNotes = document.getElementById("savedNotes");
-
-    giornoSelect.addEventListener("change", () => {
-      const giorno = giornoSelect.value;
-      const menu = menuSettimana[giorno];
-      if (menu) {
-        menuContent.innerHTML = Object.entries(menu)
-          .map(([pasto, descrizione]) => `<div class="menu-entry"><strong>${pasto}:</strong> ${descrizione}</div>`)
-          .join("");
-      } else {
-        menuContent.textContent = "Nessun menù disponibile per questo giorno.";
-      }
-    });
-
-    function salvaNota() {
-      const giorno = giornoSelect.value;
-      const nota = noteInput.value.trim();
-      const emoji = emojiInput.value;
-      if (!nota) return;
-
-      const noteSalvate = JSON.parse(localStorage.getItem("noteDiario") || "{}");
-      noteSalvate[giorno] = { testo: nota, emoji };
-      localStorage.setItem("noteDiario", JSON.stringify(noteSalvate));
-      aggiornaNote();
-      noteInput.value = "";
-    }
-
-    function aggiornaNote() {
-      const noteSalvate = JSON.parse(localStorage.getItem("noteDiario") || "{}");
-      const giorno = giornoSelect.value;
-      if (noteSalvate[giorno]) {
-        savedNotes.textContent = `Giorno: ${giorno} ${noteSalvate[giorno].emoji}
-${noteSalvate[giorno].testo}`;
-      } else {
-        savedNotes.textContent = "Nessuna nota salvata.";
+      if (id === 'menu') {
+        caricaMenu();
       }
     }
 
-    // inizializza
-    giornoSelect.value = "Lunedì";
-    giornoSelect.dispatchEvent(new Event("change"));
-    aggiornaNote();
+    function caricaMenu() {
+      const content = document.getElementById('menuContent');
+      content.innerHTML = '';
+      for (const giorno in menuSettimanale) {
+        const giornoData = menuSettimanale[giorno];
+        let html = `<h3>${giorno}</h3>`;
+        for (const pasto in giornoData) {
+          html += `<div class="menu-entry"><strong>${pasto}:</strong> ${giornoData[pasto]}</div>`;
+        }
+        content.innerHTML += html;
+      }
+    }
+
+    function salvaNote() {
+      const giorno = document.getElementById('giornoSelect').value;
+      const note = document.getElementById('note').value;
+      localStorage.setItem('note_' + giorno, note);
+      alert("✅ Note salvate!");
+    }
+
+    function caricaNote() {
+      const giorno = document.getElementById('giornoSelect').value;
+      const note = localStorage.getItem('note_' + giorno) || '';
+      document.getElementById('note').value = note;
+    }
+
+    // Carica note iniziali
+    caricaNote();
   </script>
 </body>
 </html>
