@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diario Alimentare</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: #f5f5f5;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    select, textarea, button {
+      width: 100%;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    textarea {
+      height: 100px;
+      resize: vertical;
+    }
+    .section {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .menu-entry {
+      margin-bottom: 0.5rem;
+    }
+    #savedNotes {
+      white-space: pre-wrap;
+    }
+    .tab {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>📒 Diario Alimentare di Dario</h1>
+
+  <div class="section">
+    <label for="giorno">📆 Scegli il giorno:</label>
+    <select id="giorno">
+      <option>Lunedì</option>
+      <option>Martedì</option>
+      <option>Mercoledì</option>
+      <option>Giovedì</option>
+      <option>Venerdì</option>
+      <option>Sabato</option>
+      <option>Domenica</option>
+    </select>
+  </div>
+
+  <div class="section" id="menuGiorno">
+    <h2>🍽️ Menù del Giorno</h2>
+    <div id="menuContent">Seleziona un giorno per vedere il menù.</div>
+  </div>
+
+  <div class="section">
+    <label for="emoji">🙂 Come ti senti oggi?</label>
+    <select id="emoji">
+      <option value="😊">😊</option>
+      <option value="😐">😐</option>
+      <option value="😔">😔</option>
+      <option value="😎">😎</option>
+      <option value="🥴">🥴</option>
+    </select>
+
+    <label for="note">📝 Note del giorno:</label>
+    <textarea id="note" placeholder="Scrivi qui le tue note alimentari, sensazioni, progressi..."></textarea>
+    <button onclick="salvaNota()">💾 Salva nota</button>
+  </div>
+
+  <div class="section">
+    <h2>🗂️ Note Salvate</h2>
+    <div id="savedNotes">Nessuna nota salvata.</div>
+  </div>
+
+  <script>
+    const menuSettimana = {
+      'Lunedì': {
+        'Colazione': 'Caffè + 2 gallette con marmellata + mandorle',
+        'Spuntino': '1 frutto + 2 noci',
+        'Pranzo': 'Riso con zucchine + bresaola + verdure',
+        'Merenda': 'Yogurt magro + frutta secca',
+        'Cena': 'Vellutata di zucca + uovo sodo + pane integrale'
+      },
+      'Martedì': {
+        'Colazione': 'Tè verde + 3 fette biscottate con miele',
+        'Spuntino': 'Frullato con banana e proteine',
+        'Pranzo': 'Petto di pollo + insalata + riso',
+        'Merenda': 'Barretta ai cereali',
+        'Cena': 'Pesce al forno + patate lesse + verdure'
+      },
+      'Mercoledì': {
+        'Colazione': 'Latte di mandorla + cereali integrali',
+        'Spuntino': '1 mela + mandorle',
+        'Pranzo': 'Insalatona con tonno, ceci e verdure',
+        'Merenda': 'Yogurt greco + miele',
+        'Cena': 'Omelette con verdure + pane integrale'
+      },
+      'Giovedì': {
+        'Colazione': 'Caffè + pancake integrale + frutti di bosco',
+        'Spuntino': 'Succo ACE + noci',
+        'Pranzo': 'Cous cous con verdure e tacchino',
+        'Merenda': 'Smoothie proteico',
+        'Cena': 'Crema di legumi + crostini integrali + ricotta'
+      },
+      'Venerdì': {
+        'Colazione': 'Tisana + 2 fette di pane integrale con tahina',
+        'Spuntino': 'Frutta + semi misti',
+        'Pranzo': 'Pasta integrale con pomodoro e ricotta',
+        'Merenda': 'Frutta fresca',
+        'Cena': 'Filetto di pesce + verdure grigliate + pane'
+      },
+      'Sabato': {
+        'Colazione': 'Latte + biscotti integrali',
+        'Spuntino': 'Banana',
+        'Pranzo': 'Risotto con funghi + insalata',
+        'Merenda': 'Yogurt + cereali',
+        'Cena': 'Hamburger vegetale + patate al forno + insalata'
+      },
+      'Domenica': {
+        'Colazione': 'Cappuccino + 2 fette biscottate + marmellata',
+        'Spuntino': 'Frutta secca + datteri',
+        'Pranzo': 'Lasagna + contorno di verdure',
+        'Merenda': 'Dolcetto casalingo',
+        'Cena': 'Zuppa leggera + toast integrale + formaggio magro'
+      }
+    };
+
+    const giornoSelect = document.getElementById("giorno");
+    const menuContent = document.getElementById("menuContent");
+    const noteInput = document.getElementById("note");
+    const emojiInput = document.getElementById("emoji");
+    const savedNotes = document.getElementById("savedNotes");
+
+    giornoSelect.addEventListener("change", () => {
+      const giorno = giornoSelect.value;
+      const menu = menuSettimana[giorno];
+      if (menu) {
+        menuContent.innerHTML = Object.entries(menu)
+          .map(([pasto, descrizione]) => `<div class="menu-entry"><strong>${pasto}:</strong> ${descrizione}</div>`)
+          .join("");
+      } else {
+        menuContent.textContent = "Nessun menù disponibile per questo giorno.";
+      }
+    });
+
+    function salvaNota() {
+      const giorno = giornoSelect.value;
+      const nota = noteInput.value.trim();
+      const emoji = emojiInput.value;
+      if (!nota) return;
+
+      const noteSalvate = JSON.parse(localStorage.getItem("noteDiario") || "{}");
+      noteSalvate[giorno] = { testo: nota, emoji };
+      localStorage.setItem("noteDiario", JSON.stringify(noteSalvate));
+      aggiornaNote();
+      noteInput.value = "";
+    }
+
+    function aggiornaNote() {
+      const noteSalvate = JSON.parse(localStorage.getItem("noteDiario") || "{}");
+      const giorno = giornoSelect.value;
+      if (noteSalvate[giorno]) {
+        savedNotes.textContent = `Giorno: ${giorno} ${noteSalvate[giorno].emoji}
+${noteSalvate[giorno].testo}`;
+      } else {
+        savedNotes.textContent = "Nessuna nota salvata.";
+      }
+    }
+
+    // inizializza
+    giornoSelect.value = "Lunedì";
+    giornoSelect.dispatchEvent(new Event("change"));
+    aggiornaNote();
+  </script>
+</body>
+</html>
