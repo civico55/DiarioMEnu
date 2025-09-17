@@ -1,51 +1,169 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>📒 Diario Alimentare di Dario</title>
+  <title>📂 Diario Alimentare di Dario</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 2rem; max-width: 800px; margin: auto; }
-    h1, h2 { text-align: center; }
-    select, textarea, button { display: block; margin: 1rem auto; width: 100%; max-width: 500px; }
-    textarea { height: 100px; }
-    .tabs { display: flex; justify-content: center; margin-top: 2rem; gap: 1rem; }
-    .tab-button { padding: 0.5rem 1rem; cursor: pointer; background: #eee; border: 1px solid #ccc; border-radius: 5px; }
-    .tab-button.active { background: #ccc; font-weight: bold; }
-    .tab-content { display: none; margin-top: 1rem; }
-    .tab-content.active { display: block; }
-    .note { background: #f9f9f9; padding: 1rem; border: 1px solid #ddd; margin-top: 1rem; border-radius: 5px; }
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f6f6f6;
+      color: #333;
+    }
+    header {
+      background: #2e7d32;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    nav button {
+      flex: 1;
+      padding: 1rem;
+      border: none;
+      background: none;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    nav button.active {
+      border-bottom: 3px solid #2e7d32;
+      font-weight: bold;
+    }
+    .container {
+      padding: 1rem;
+    }
+    label, select, textarea, input {
+      width: 100%;
+      margin: 0.5rem 0;
+      font-size: 1rem;
+    }
+    textarea {
+      min-height: 100px;
+    }
+    .note-saved {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #e0f2f1;
+      border-left: 4px solid #00796b;
+    }
+    .menu-entry {
+      background: #fff;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    h2 {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      border-bottom: 1px solid #ccc;
+    }
   </style>
 </head>
 <body>
-  <h1>📒 Diario Alimentare di Dario</h1>
-  <label for="giorno">Scegli il giorno:</label>
-  <select id="giorno">
-    <option>Lunedì</option><option>Martedì</option><option>Mercoledì</option>
-    <option>Giovedì</option><option>Venerdì</option><option>Sabato</option><option>Domenica</option>
-  </select>
+  <header>📂 Diario Alimentare di Dario</header>
+  <nav>
+    <button id="tabDiario" class="active" onclick="showTab('diario')">📝 Diario</button>
+    <button id="tabMenu" onclick="showTab('menu')">📅 Menù</button>
+    <button id="tabRegole" onclick="showTab('regole')">📋 Regole</button>
+  </nav>
 
-  <label for="umore">Come ti senti oggi? 😋🍔🍕🌮😴</label>
-  <input type="text" id="umore" placeholder="Scrivi un'emoji, un commento..." />
+  <div class="container">
+    <div id="diarioTab">
+      <label for="giorno">📆 Giorno della settimana:</label>
+      <select id="giorno">
+        <option>Lunedì</option>
+        <option>Martedì</option>
+        <option>Mercoledì</option>
+        <option>Giovedì</option>
+        <option>Venerdì</option>
+        <option>Sabato</option>
+        <option>Domenica</option>
+      </select>
 
-  <label for="nota">Note del giorno:</label>
-  <textarea id="nota" placeholder="Scrivi qui le tue note alimentari, sensazioni, progressi..."></textarea>
-  <button onclick="salvaNota()">📅 Salva nota</button>
+      <label for="emoji">😊 Come ti senti?</label>
+      <select id="emoji">
+        <option>😃</option>
+        <option>😐</option>
+        <option>😞</option>
+        <option>💪</option>
+        <option>🧘</option>
+        <option>🍕</option>
+      </select>
 
-  <h2>📝 Note Salvate</h2>
-  <div id="note-container"></div>
+      <label for="note">✍️ Note:</label>
+      <textarea id="note"></textarea>
+      <button onclick="salvaNota()">💾 Salva Nota</button>
 
-  <div class="tabs">
-    <button class="tab-button active" onclick="cambiaTab('diario')">📓 Diario</button>
-    <button class="tab-button" onclick="cambiaTab('menu')">📋 Menù</button>
-    <button class="tab-button" onclick="cambiaTab('regole')">📘 Regole</button>
+      <div id="noteSalvate"></div>
+    </div>
+
+    <div id="menuTab" style="display:none">
+      <div id="menuContent"></div>
+    </div>
+
+    <div id="regoleTab" style="display:none">
+      <h2>📋 Regole Alimentari</h2>
+      <ul>
+        <li>Evita zuccheri aggiunti e prodotti raffinati</li>
+        <li>Consuma almeno 5 porzioni di frutta e verdura al giorno</li>
+        <li>Prediligi cotture leggere e usa poco sale</li>
+        <li>Bevi almeno 2 litri d’acqua al giorno</li>
+        <li>Evita alcolici e cibi fritti</li>
+        <li>Mastica lentamente e mangia con consapevolezza</li>
+      </ul>
+    </div>
   </div>
 
-  <div id="diario" class="tab-content active"></div>
-  <div id="menu" class="tab-content"></div>
-  <div id="regole" class="tab-content"></div>
+  <script type="module">
+    import { menuSettimana } from './menuSettimana.js';
 
-  <script src="menu.js"></script>
+    function showTab(tab) {
+      document.getElementById('diarioTab').style.display = tab === 'diario' ? 'block' : 'none';
+      document.getElementById('menuTab').style.display = tab === 'menu' ? 'block' : 'none';
+      document.getElementById('regoleTab').style.display = tab === 'regole' ? 'block' : 'none';
+
+      document.getElementById('tabDiario').classList.remove('active');
+      document.getElementById('tabMenu').classList.remove('active');
+      document.getElementById('tabRegole').classList.remove('active');
+      document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+
+      if (tab === 'menu') caricaMenu();
+    }
+
+    function caricaMenu() {
+      const container = document.getElementById('menuContent');
+      container.innerHTML = '';
+      for (const giorno in menuSettimana) {
+        const entry = document.createElement('div');
+        entry.className = 'menu-entry';
+        entry.innerHTML = `<h2>${giorno}</h2>` +
+          Object.entries(menuSettimana[giorno]).map(([pasto, valore]) => `
+            <p><strong>${pasto}:</strong> ${valore}</p>
+          `).join('');
+        container.appendChild(entry);
+      }
+    }
+
+    window.salvaNota = function() {
+      const giorno = document.getElementById('giorno').value;
+      const emoji = document.getElementById('emoji').value;
+      const nota = document.getElementById('note').value;
+      const container = document.getElementById('noteSalvate');
+      const div = document.createElement('div');
+      div.className = 'note-saved';
+      div.innerHTML = `<strong>${giorno}</strong> ${emoji}<br>${nota}`;
+      container.appendChild(div);
+      document.getElementById('note').value = '';
+    }
+  </script>
 </body>
 </html>
