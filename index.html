@@ -106,58 +106,57 @@
   </div>
 
   <script>
-    const menuSettimana = {
-      'Lunedì': {
-        'Colazione': 'Caffè + 2 gallette con marmellata + mandorle',
-        'Spuntino': '1 frutto + 2 noci',
-        'Pranzo': 'Riso con zucchine + bresaola + verdure',
-        'Merenda': 'Yogurt magro + frutta secca',
-        'Cena': 'Vellutata di zucca + uovo sodo + pane integrale'
-      },
-      'Martedì': {
-        'Colazione': 'Tè verde + 3 fette biscottate con miele',
-        'Spuntino': 'Frullato con banana e proteine',
-        'Pranzo': 'Petto di pollo + insalata + riso',
-        'Merenda': 'Barretta ai cereali',
-        'Cena': 'Pesce al forno + patate lesse + verdure'
-      },
-      'Mercoledì': {
-        'Colazione': 'Latte di mandorla + cereali integrali',
-        'Spuntino': '1 mela + mandorle',
-        'Pranzo': 'Insalatona con tonno, ceci e verdure',
-        'Merenda': 'Yogurt greco + miele',
-        'Cena': 'Omelette con verdure + pane integrale'
-      },
-      'Giovedì': {
-        'Colazione': 'Caffè + pancake integrale + frutti di bosco',
-        'Spuntino': 'Succo ACE + noci',
-        'Pranzo': 'Cous cous con verdure e tacchino',
-        'Merenda': 'Smoothie proteico',
-        'Cena': 'Crema di legumi + crostini integrali + ricotta'
-      },
-      'Venerdì': {
-        'Colazione': 'Tisana + 2 fette di pane integrale con tahina',
-        'Spuntino': 'Frutta + semi misti',
-        'Pranzo': 'Pasta integrale con pomodoro e ricotta',
-        'Merenda': 'Frutta fresca',
-        'Cena': 'Filetto di pesce + verdure grigliate + pane'
-      },
-      'Sabato': {
-        'Colazione': 'Latte + biscotti integrali',
-        'Spuntino': 'Banana',
-        'Pranzo': 'Risotto con funghi + insalata',
-        'Merenda': 'Yogurt + cereali',
-        'Cena': 'Hamburger vegetale + patate al forno + insalata'
-      },
-      'Domenica': {
-        'Colazione': 'Cappuccino + 2 fette biscottate + marmellata',
-        'Spuntino': 'Frutta secca + datteri',
-        'Pranzo': 'Lasagna + contorno di verdure',
-        'Merenda': 'Dolcetto casalingo',
-        'Cena': 'Zuppa leggera + toast integrale + formaggio magro'
-      }
-    };
-
+   const menuSettimana = {
+  'Lunedì': {
+    'Colazione': '1 caffè o tè + 2 gallette di riso o mais con marmellata senza zucchero + 3 mandorle o 2 noci',
+    'Spuntino': '1 frutto fresco + 2 noci',
+    'Pranzo': 'Riso con zucchine + 80 g bresaola + verdure cotte + 1 cucchiaio di olio EVO',
+    'Merenda': '1 yogurt magro naturale + 1 cucchiaino di semi oleosi',
+    'Cena': 'Vellutata di zucca + 2 uova sode + 40 g pane integrale + verdure cotte'
+  },
+  'Martedì': {
+    'Colazione': 'Tè verde + 3 fette biscottate integrali con 1 cucchiaino di miele',
+    'Spuntino': 'Frullato: 1 banana + 1 misurino proteine veg + acqua',
+    'Pranzo': 'Petto di pollo alla griglia + insalata mista + 50 g riso integrale + 1 cucchiaio olio EVO',
+    'Merenda': '1 barretta proteica o cereali integrali',
+    'Cena': 'Pesce al forno (merluzzo o orata) + patate lesse + verdure cotte'
+  },
+  'Mercoledì': {
+    'Colazione': 'Latte vegetale (mandorla o avena) senza zucchero + 30 g cereali integrali',
+    'Spuntino': '1 mela + 5 mandorle',
+    'Pranzo': 'Insalatona con tonno al naturale, ceci, verdure miste, 1 cucchiaio olio EVO',
+    'Merenda': 'Yogurt greco 0% + 1 cucchiaino di miele',
+    'Cena': 'Omelette di 2 uova + verdure miste + 40 g pane integrale'
+  },
+  'Giovedì': {
+    'Colazione': 'Caffè + 1 pancake integrale + frutti di bosco freschi',
+    'Spuntino': '1 succo ACE senza zucchero + 2 noci',
+    'Pranzo': 'Cous cous integrale con verdure e tacchino + 1 cucchiaio olio EVO',
+    'Merenda': 'Smoothie proteico con acqua e frutta',
+    'Cena': 'Crema di legumi + crostini integrali + 60 g ricotta magra'
+  },
+  'Venerdì': {
+    'Colazione': 'Tisana + 2 fette pane integrale con tahina o crema 100% arachidi',
+    'Spuntino': 'Frutta fresca + 1 cucchiaio semi misti',
+    'Pranzo': 'Pasta integrale con pomodoro + 40 g ricotta + verdure cotte',
+    'Merenda': '1 frutto di stagione',
+    'Cena': 'Filetto di pesce (tipo spigola) + verdure grigliate + 40 g pane'
+  },
+  'Sabato': {
+    'Colazione': 'Latte vaccino parzialmente scremato + 3 biscotti integrali',
+    'Spuntino': '1 banana piccola',
+    'Pranzo': 'Risotto con funghi + insalata verde + 1 cucchiaio olio EVO',
+    'Merenda': 'Yogurt + cereali integrali',
+    'Cena': 'Hamburger vegetale + patate al forno + insalata'
+  },
+  'Domenica': {
+    'Colazione': 'Cappuccino + 2 fette biscottate con marmellata senza zuccheri',
+    'Spuntino': 'Frutta secca (3 mandorle + 2 datteri)',
+    'Pranzo': 'Lasagna fatta in casa con verdure + contorno leggero',
+    'Merenda': 'Dolce fatto in casa (piccola porzione)',
+    'Cena': 'Zuppa leggera (tipo minestrone) + toast integrale + formaggio magro (40 g)'
+  }
+};
     const giornoSelect = document.getElementById("giorno");
     const menuContent = document.getElementById("menuContent");
     const noteInput = document.getElementById("note");
